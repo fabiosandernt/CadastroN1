@@ -22,8 +22,8 @@ namespace Cadastro.Controllers
         // GET: Products
         public IActionResult Index()
         {
-            var list = _productViewModelService.GetAll();
-            return View(list);
+            var client = _productViewModelService.GetAll();
+            return View(client);
         }
 
         // GET: Products/Details/5
@@ -52,7 +52,6 @@ namespace Cadastro.Controllers
         {
             try
             {
-
                 if (ModelState.IsValid)
                 {
                     _productViewModelService.Insert(viewModel);
@@ -71,6 +70,9 @@ namespace Cadastro.Controllers
         public ActionResult Edit(int id)
         {
             var viewModel = _productViewModelService.Get(id);
+
+            viewModel.Clients = _clientViewModelService.GetAll();
+
             return View(viewModel);
         }
 
@@ -91,7 +93,7 @@ namespace Cadastro.Controllers
             }
             catch
             {
-                return View(viewModel);
+                return View(viewModel);  
             }
         }
 

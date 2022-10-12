@@ -12,16 +12,7 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" />
-                <span asp-validation-for="Id" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Client.Name" class="control-label"></label>
-                <input asp-for="Client.Name" class="form-control" />
-                <span asp-validation-for="Client.Name" class="text-danger"></span>
-            </div>
+            <input type="hidden" asp-for="Id" class="form-control" />
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
@@ -31,11 +22,28 @@
                 <label asp-for="Value" class="control-label"></label>
                 <input asp-for="Value" class="form-control" />
                 <span asp-validation-for="Value" class="text-danger"></span>
-            </div>        
+            </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="Ative" /> @Html.DisplayNameFor(model => model.Ative)
                 </label>
+            </div>
+            <div>
+                <label asp-for="Client" class="control-label"></label>
+                <select asp-for="ClientId" class="form-control">
+                    @foreach (var client in Model.Clients)
+                    {
+                        if (client.Id == Model.ClientId)
+                        {
+                            <option value="@client.Id" selected>@client.Name</option>
+                        }  
+                        else 
+                        {
+                            <option value="@client.Id">@client.Name</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="ClientId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Salvar" class="btn btn-primary" />
@@ -49,5 +57,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

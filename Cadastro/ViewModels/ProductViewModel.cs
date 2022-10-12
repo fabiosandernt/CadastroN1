@@ -16,6 +16,7 @@ namespace Cadastro.ViewModels
 
         [Display(Name = "Valor")]
         [Required(ErrorMessage = "O valor é requerido.")]
+        [DisplayFormat(DataFormatString = "{0:f2}")]
         public decimal Value { get; set; }
 
         [Display(Name = "Disponível")]
@@ -24,6 +25,7 @@ namespace Cadastro.ViewModels
         [Required]
         public int ClientId { get; set; }
 
+        [Display(Name = "Cliente")]
         public ClientViewModel Client { get; set; }
         public IEnumerable<ClientViewModel> Clients { get; set; }
 
